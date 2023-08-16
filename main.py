@@ -51,10 +51,21 @@ async def add_item(book: ITEM):
 async def new_name():
 	return "new name"
 
+@app.get("/item-by-index/{index}")
+async def item_by_index(index: int):
+	if index < 0 or index >= len(ITEM_DATABASE):
+		raise HTTPException(404, f"Index {index} not working")
+	else:
+		return {"book": ITEM_DATABASE[index]}
+
+#ikea products
+#bed in Riverside
+#dresser in Potsdam
+#mattress in Haarlem
 
 #this would be inventory of item or location
 #location would have shelf, room, house, city
 #house would have a model 
-#verbs to move things around
-#goal - is to find the tool or the memory to move forward
+#goal - is to find the item to complete project
+#for example - missing screwdriver or power tool
 
