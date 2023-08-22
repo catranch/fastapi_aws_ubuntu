@@ -11,7 +11,10 @@ app = FastAPI()
 class ITEM(BaseModel):
 	name: str
 	price: float
-	genre: Literal["house","garage"]
+	room: str
+	building: Literal["house","garage"]
+	description: Optional[str] = None
+	city: Literal["Potsdam","Riverside"]
 	item_id: Optional[str] = uuid4().hex
 
 ITEMS_FILE = "items.json"
@@ -38,6 +41,19 @@ async def book_by_index(index: int):
 	else:
 		return {"book": ITEM_DATABASE[index]}
 
+@app.get("/get-item/{name}")
+async def get_item(name: str):
+	new_list = []
+	for book in ITEM_DATABASE:
+		if book["name"] == name:
+			new_list.append(book)
+			#return book
+	return new_list
+	#do some things
+	#return the rest of the data, loop for second entry
+	#especially location
+	#do as local file then upload to db 
+
 @app.post("/add-item")
 async def add_item(book: ITEM):
 	book.item_id = uuid4().hex
@@ -47,16 +63,18 @@ async def add_item(book: ITEM):
 		json.dump(ITEM_DATABASE, f)
 	return {"message": f"Item {book} added"}
 
-@app.post("/new-name")
-async def new_name():
-	return "new name"
-
+#this index is it's location in the array
 @app.get("/item-by-index/{index}")
 async def item_by_index(index: int):
 	if index < 0 or index >= len(ITEM_DATABASE):
 		raise HTTPException(404, f"Index {index} not working")
 	else:
 		return {"book": ITEM_DATABASE[index]}
+
+#look up products by item[name] to find an item in the house
+#list what's in the house or the location
+#list what's needed based on the other location
+#for Ikea check delivery location - overlap of dates?
 
 #ikea products
 #bed in Riverside
@@ -68,4 +86,3 @@ async def item_by_index(index: int):
 #house would have a model 
 #goal - is to find the item to complete project
 #for example - missing screwdriver or power tool
-
