@@ -1,1 +1,1 @@
-[{"name": "iPhone6", "price": 20.0, "genre": "garage", "item_id": "abb1b094fa774914b795d65e027d5f9a"}]
+[{"name": "dresser", "price": 0, "room": "south bay", "building": "garage", "city": "Potsdam", "item_id": "240db4d4bbc84569a45b7384911dbb19"}, {"name": "box6", "price": 0.0, "room": "dining room", "building": "house", "description": "Halloween", "city": "Potsdam", "item_id": "4abaa79d809b4856a74a016a30151363"}]
